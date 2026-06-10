@@ -1,0 +1,262 @@
+/* ── App Shell ── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ── Reset & Variables ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:      #0a0a0f;
+  --surface: #13131a;
+  --border:  #2a2a3a;
+  --accent:  #7c3aed;
+  --accent2: #06b6d4;
+  --text:    #e2e8f0;
+  --muted:   #64748b;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ── Header ── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.connect-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.connect-btn:active { opacity: 0.8; }
+
+.wallet-address {
+  font-size: 12px;
+  color: var(--accent2);
+  font-family: monospace;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ── 3D Viewer ── */
+.viewer-container {
+  position: relative;
+  width: 100%;
+  height: min(100vw, 420px);   /* square on mobile, capped on desktop */
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, var(--bg) 70%);
+  overflow: hidden;
+}
+
+.viewer-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+}
+
+.viewer-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.connect-prompt {
+  text-align: center;
+  color: var(--muted);
+}
+
+.connect-prompt .icon { font-size: 48px; margin-bottom: 8px; }
+.connect-prompt p     { font-size: 14px; }
+
+
+/* ── NFT Panel ── */
+.nft-panel {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+
+/* ── NFT Thumbnail List ── */
+.nft-list {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+  margin-bottom: 20px;
+}
+
+.nft-list::-webkit-scrollbar { display: none; }
+
+.nft-thumb {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.nft-thumb.active { border-color: var(--accent); }
+
+.nft-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nft-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+
+/* ── NFT Detail Card ── */
+.nft-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.nft-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.nft-collection {
+  font-size: 13px;
+  color: var(--accent2);
+  margin-bottom: 14px;
+}
+
+.nft-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.meta-item {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.meta-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.meta-value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* ── Trait Chips ── */
+.nft-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.trait-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.trait-chip .trait-type { color: var(--muted); }
+.trait-chip .trait-val  { color: var(--text); font-weight: 600; }
+
+
+/* ── Loading Skeleton ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--border)  50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+
+/* ── Empty / Error States ── */
+.state-msg {
+  text-align: center;
+  color: var(--muted);
+  padding: 24px 0;
+  font-size: 14px;
+}
