@@ -1,13 +1,18 @@
-# 3D NFT Viewer
+# 3Dshow
 
-> A mobile-first 3D NFT display page for Algorand. Connect your Pera wallet and explore your NFTs in 3D.
+> A collectible ownership demo for physical cards, combining 3D presentation, NFC entry, and blockchain-backed ownership on Base.
 
-## Features
+## Current Direction
 
-- [ ] Pera Wallet connection
-- [ ] Fetch NFTs via Algorand Indexer (ARC-3 / ARC-69)
-- [ ] 3D NFT card viewer (React Three Fiber)
-- [ ] Mobile-first UI
+- [x] 3D card presentation
+- [x] Card texture system
+- [ ] Google login + embedded wallet
+- [ ] Claim flow
+- [ ] Ownership history
+- [ ] Transfer flow
+- [ ] Lost / replacement flow
+- [ ] Issuer dashboard
+- [ ] NFC integration
 
 ## Tech Stack
 
@@ -15,8 +20,7 @@
 |---|---|
 | UI | React 18 |
 | 3D rendering | Three.js + React Three Fiber + Drei |
-| Algorand wallet | Pera Wallet Connect |
-| NFT data | Algorand Indexer (algonode.io) |
+| Chain target | Base |
 | Dev server / bundler | Vite |
 
 ## Getting Started
@@ -27,6 +31,15 @@ npm run dev
 ```
 
 Then open `http://localhost:5173`.
+
+## Docs
+
+- Demo overview: [expect.md](/Users/gg/Downloads/github/3Dshow/expect.md:1)
+- Requirements: [docs/requirements.md](/Users/gg/Downloads/github/3Dshow/docs/requirements.md:1)
+- Session A: [docs/sessions/session-a.md](/Users/gg/Downloads/github/3Dshow/docs/sessions/session-a.md:1)
+- Entity guide: [docs/guides/entity-writing.md](/Users/gg/Downloads/github/3Dshow/docs/guides/entity-writing.md:1)
+- Handbook: [docs/handbook.md](/Users/gg/Downloads/github/3Dshow/docs/handbook.md:1)
+- Dev log: [docs/dev-log.md](/Users/gg/Downloads/github/3Dshow/docs/dev-log.md:1)
 
 ## Project Structure
 
@@ -40,10 +53,11 @@ src/
 │   ├── Viewer3D.jsx       # R3F Canvas, NFT card mesh, particles
 │   └── NftPanel.jsx       # thumbnail strip + detail card
 └── hooks/
-    ├── usePeraWallet.js   # wallet connect / disconnect / reconnect
-    └── useNFTs.js         # fetch + resolve NFTs from Algorand Indexer
+    ├── usePeraWallet.js   # legacy wallet hook from earlier prototype
+    └── useNFTs.js         # legacy NFT fetch hook from earlier prototype
 ```
 
 ## Notes
 
-<!-- Add anything worth knowing about the project here -->
+- The repo still contains some earlier Algorand-oriented prototype code.
+- Product direction is now centered on a Base-based ownership demo for physical collectible cards.

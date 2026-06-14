@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import Header   from './components/Header';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
 import Viewer3D from './components/Viewer3D';
 import NftPanel from './components/NftPanel';
+import { usePrivy } from '@privy-io/react-auth';
+import ClaimPage from './pages/ClaimPage';
 
-export default function App() {
-  // TODO: lift wallet + NFT state here and pass down as props
-  const [address, setAddress] = useState(null);
-  const [nfts,    setNfts]    = useState([]);
-  const [selected, setSelected] = useState(null);
-
+function HomePage({ address, login, logout, nfts, selected, setSelected }) {
   return (
     <div className="app">
       <Header
         address={address}
-        onConnect={/* TODO: wire usePeraWallet hook */ () => {}}
-        onDisconnect={/* TODO */ () => {}}
+        onConnect={login}
+        onDisconnect={logout}
       />
 
       <Viewer3D selectedNft={selected} />
@@ -25,5 +23,41 @@ export default function App() {
         onSelect={setSelected}
       />
     </div>
+  );
+}
+
+export default function App() {
+  const [nfts, setNfts] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const { ready, authenticated, login, logout, user } = usePrivy();
+  const address = authenticated ? user?.email?.address ?? 'Logged in' : null;
+
+  if (!ready) return null;
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <HomePage
+            address={address}
+            login={login}
+            logout={logout}
+            nfts={nfts}
+            selected={selected}
+            setSelected={setSelected}
+          />
+        }
+      />
+      <Route
+        path="/card/:slug"
+        element={
+          <ClaimPage
+            address={address}
+            authenticated={authenticated}
+            login={login}
+          />
+        }
+      />
+    </Routes>
   );
 }

@@ -14,7 +14,7 @@ export default function Header({ address, onConnect, onDisconnect }) {
         className="connect-btn"
         onClick={address ? onDisconnect : onConnect}
       >
-        {address ? shortAddr(address) : 'Connect Wallet'}
+        {address ? shortAddr(address) : 'LOGIN'}
       </button>
     </header>
   );

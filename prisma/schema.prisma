@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum CardStatus {
+  UNCLAIMED
+  CLAIMED
+  LOST
+  REPLACED
+}
+
+enum CardVersionStatus {
+    ACTIVE
+    LOST
+    REPLACED
+    INVALID
+  }
+
+model Card {
+  id                 String  @id @default(cuid())
+  collectionId       String
+  tokenId            String
+  serialNumber       Int
+  currentOwnerUserId String?
+  currentVersionId   String? @unique
+  status             CardStatus
+  isActive           Boolean @default(true)
+
+  versions CardVersion[]
+  history  OwnershipHistory[]
+  currentVersion CardVersion? @relation("CurrentCardVersion", fields: [currentVersionId], references: [id])
+  collection Collection @relation(fields: [collectionId], references: [id])
+}
+
+model CardVersion {
+  id            String  @id @default(cuid())
+  cardId        String
+  versionNumber Int
+  nfcTagUid     String?
+  nfcUrl        String?
+  status        CardVersionStatus
+  notes         String?
+  
+
+  card Card @relation(fields: [cardId], references: [id])
+  currentForCard Card? @relation("CurrentCardVersion")
+}
+
+model OwnershipHistory {
+    id          String @id @default(cuid())
+    cardId      String
+    fromUserId  String?
+    toUserId    String?
+    eventType   String
+    txHash      String?
+    notes       String?
+
+    card Card @relation(fields: [cardId], references: [id])
+}
+
+  model Collection {
+    id     String @id @default(cuid())
+    name   String
+    slug   String @unique
+    cards  Card[]
+  }
