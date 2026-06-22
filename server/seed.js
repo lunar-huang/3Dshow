@@ -40,10 +40,26 @@ async function main() {
         },
     });
 
+    const card3 = await prisma.card.upsert({
+        where: { tokenId: "3" },
+        update: {
+            slug: "test-card-3",
+        },
+        create: {
+            collectionId: collection.id,
+            tokenId: "3",
+            slug: "test-card-3",
+            serialNumber: 3,
+            status: "UNCLAIMED",
+            isActive: true,
+        },
+    });
+
     console.log("Seeded:", {
         collection: collection.slug,
         card1: card1.tokenId,
         card2: card2.tokenId,
+        card3: card3.tokenId,
     });
 }
 

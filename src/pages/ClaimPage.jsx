@@ -123,9 +123,15 @@ export default function ClaimPage({ address, walletAddress, authenticated, login
             className="connect-btn"
             type="button"
             onClick={handleClaim}
-            disabled={isClaiming || claimSucceeded}
+            disabled={isClaiming || claimSucceeded || displayStatus === 'CLAIMED'}
           >
-            {claimSucceeded ? 'Claimed' : isClaiming ? 'Claiming...' : 'Claim NFT'}
+            {displayStatus === 'CLAIMED'
+              ? 'Already Claimed'
+              : isClaiming
+                ? 'Claiming...'
+                : claimSucceeded
+                  ? 'Claimed'
+                  : 'Claim NFT'}
           </button>
         )}
       </div>
