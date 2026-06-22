@@ -89,3 +89,32 @@
 - 新增 `GET /card/:slug`
 - 前端 claim page 改为从 backend 读取 card detail
 - 去掉 `src/data/cards.js` 对 claim page 的直接依赖
+
+## 2026-06-22
+
+### 当前状态
+
+- backend 已从 Prisma 读取 card 数据
+- frontend claim page 已从 backend 读取 card detail
+- backend 已按链上 owner 状态返回 `CLAIMED / UNCLAIMED`
+- `slug -> Card` 查询已从临时映射切换到 Prisma `slug`
+- 已成功新增并 claim `test-card-3`
+
+### 已完成的 MVP 链路
+
+- claim link
+- Privy 邮箱登录
+- embedded wallet
+- backend claim endpoint
+- local Hardhat 合约 claim
+- frontend 状态刷新
+
+### 当前结论
+
+- 第一条 MVP 垂直切片已经跑通
+- 当前主要问题不再是 claim flow，而是后续产品化整理
+
+### 下一步建议
+
+- 构建 `My Cards` 页面
+- 或继续补全 DB 字段，去掉 backend response 里的硬编码展示字段

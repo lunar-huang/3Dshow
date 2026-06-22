@@ -112,7 +112,9 @@
 - 已完成 Privy 邮箱登录
 - 已完成最小 claim route 与 backend claim endpoint
 - 已完成本地链上 claim 打通
-- 当前下一步：去掉前后端重复 card 数据，改为后端提供 card detail
+- 已完成前后端重复 card 数据清理
+- 已完成 backend -> Prisma -> chain status 的 card detail 流程
+- 当前下一步：构建 `My Cards` 页面，或继续完善 card 展示字段
 
 ## 7. 注意事项
 
