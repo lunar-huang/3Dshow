@@ -24,7 +24,8 @@ enum CardVersionStatus {
 model Card {
   id                 String  @id @default(cuid())
   collectionId       String
-  tokenId            String
+  slug               String? @unique
+  tokenId            String @unique
   serialNumber       Int
   currentOwnerUserId String?
   currentVersionId   String? @unique

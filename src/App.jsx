@@ -31,6 +31,9 @@ export default function App() {
   const [selected, setSelected] = useState(null);
   const { ready, authenticated, login, logout, user } = usePrivy();
   const address = authenticated ? user?.email?.address ?? 'Logged in' : null;
+  const walletAddress = user?.linkedAccounts?.find(
+    (account) => account.type === 'wallet' && account.chainType === 'ethereum'
+  )?.address ?? null;
 
   if (!ready) return null;
   return (
@@ -53,6 +56,7 @@ export default function App() {
         element={
           <ClaimPage
             address={address}
+            walletAddress={walletAddress}
             authenticated={authenticated}
             login={login}
           />

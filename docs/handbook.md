@@ -110,8 +110,9 @@
 ### 当前正在做
 
 - 已完成 Privy 邮箱登录
-- 正在接入 claim link 路由
-- 当前页面目标：`/card/:slug`
+- 已完成最小 claim route 与 backend claim endpoint
+- 已完成本地链上 claim 打通
+- 当前下一步：去掉前后端重复 card 数据，改为后端提供 card detail
 
 ## 7. 注意事项
 

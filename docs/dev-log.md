@@ -68,3 +68,24 @@
 - 用户可直接打开 claim link
 - 未登录时可在 claim page 上完成登录
 - 登录后可看到 claim 按钮
+
+## 2026-06-20
+
+### 当前状态
+
+- 前端 claim page 已可登录并发起 claim
+- backend `/claim` 已能调用合约完成真实 claim
+- 本地 Hardhat 合约、mint、owner、claim 流程已跑通
+
+### 当前问题
+
+- frontend `src/data/cards.js` 与 backend `cardMap` 重复维护 card 数据
+- claim page 仍然依赖前端 mock card 数据
+- backend 才是真正驱动 tokenId 的一侧，但前端并未从 backend 读取 card detail
+
+### 下一步
+
+- 先让 backend 成为临时 source of truth
+- 新增 `GET /card/:slug`
+- 前端 claim page 改为从 backend 读取 card detail
+- 去掉 `src/data/cards.js` 对 claim page 的直接依赖
